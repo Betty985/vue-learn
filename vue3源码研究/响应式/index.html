@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./main.js"></script>
+  </head>
+  <body>
+    <div class="app"></div>
+    <input oninput="test()" />
+    <button>btn</button>
+    <script>
+      // debugger;
+      let obj = {
+        name: "hah",
+        age: 20,
+        num: 1,
+        sum: 0,
+        input: "",
+        middle: "",
+      };
+      let state = reactive(obj);
+      effect(() => {
+        document.querySelector(".app").innerHTML = `name:${state.name}
+        <br/>
+        age:${state.age}
+        <br/>
+        num:${state.num}
+        <br/>
+        sum:${state.age + state.num}
+        <br/>
+        <p>${state.middle}</p>
+        `;
+        document.querySelector("input").value = state.middle;
+      });
+      function test() {
+        state.middle = document.querySelector("input").value;
+      }
+      document.querySelector("button").addEventListener("click", () => {
+        state.age += 10;
+        state.num++;
+        state.middle = String(state.middle)
+          .split("")
+          .reduce((pre, cur) => Number(pre) + Number(cur));
+      });
+    </script>
+  </body>
+</html>
